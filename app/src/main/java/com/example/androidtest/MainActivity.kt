@@ -1,9 +1,11 @@
 package com.example.androidtest
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -17,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textViewCounter: TextView
     private lateinit var buttonUp: Button
     private lateinit var buttonDown: Button
-
+    private lateinit var editTextName: EditText
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -26,32 +28,27 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-
         textViewCounter = findViewById(R.id.textViewCounter)
         buttonUp = findViewById(R.id.buttonUp)
         buttonDown = findViewById(R.id.buttonDown)
-
+        editTextName = findViewById(R.id.plainTextName)
 
         sharedPreferences = getPreferences(MODE_PRIVATE)
-
-
         counter = sharedPreferences.getInt("counter", 0)
         updateCounter()
-
 
         buttonUp.setOnClickListener {
             counter++
             updateCounter()
             saveCounter()
+            checkCounter()
         }
-
 
         buttonDown.setOnClickListener {
             if (counter > 0) {
@@ -62,16 +59,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun updateCounter() {
         textViewCounter.text = counter.toString()
     }
-
 
     private fun saveCounter() {
         val editor = sharedPreferences.edit()
         editor.putInt("counter", counter)
         editor.apply()
+    }
+
+    private fun checkCounter() {
+        if (counter == 10) {
+            val name = editTextName.text.toString()
+            if (name.isNotEmpty()) {
+                val intent = Intent(this, SuccessActivity::class.java).apply {
+                    putExtra("name", name)
+                }
+                startActivity(intent)
+                counter = 0
+                updateCounter()
+                saveCounter()
+            } else {
+                Toast.makeText(this, "Please enter your name before proceeding", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onStart() {
