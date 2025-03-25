@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/running_abstract"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -18,6 +19,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
     <TextView
+        android:background="?colorSecondary"
+        android:textColor="?colorOnSecondary"
         android:id="@+id/textViewCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,11 +42,15 @@
             android:text="DOWN" />
 
         <TextView
+            android:background="?colorSecondary"
+            android:textColor="?colorOnSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name:" />
 
         <EditText
+            android:background="?colorSecondary"
+            android:textColor="?colorOnSecondary"
             android:id="@+id/plainTextName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

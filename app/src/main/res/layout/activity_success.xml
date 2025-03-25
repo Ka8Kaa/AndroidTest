@@ -5,9 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/running_abstract"
     tools:context=".SuccessActivity">
 
     <TextView
+        android:background="?colorSecondary"
+        android:textColor="?colorOnSecondary"
         android:id="@+id/textViewSuccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
